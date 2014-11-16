@@ -1,8 +1,10 @@
 package net.remew.LanceOfLonginusMod;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
 import net.remew.LanceOfLonginusMod.items.ItemLanceOfLonginus;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -10,6 +12,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid=LanceOfLonginusMod.MOD_ID)
 @NetworkMod(clientSideRequired=true, serverSideRequired=false)
@@ -39,7 +42,10 @@ public class LanceOfLonginusMod
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		
+		if( FMLCommonHandler.instance().getSide() == Side.CLIENT )
+		{
+			MinecraftForgeClient.registerItemRenderer(this.lanceOfLonginus.itemID, null);
+		}
 	}
 	
 	@EventHandler
