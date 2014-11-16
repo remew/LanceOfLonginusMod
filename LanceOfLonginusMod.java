@@ -3,7 +3,7 @@ package net.remew.LanceOfLonginusMod;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
-import net.remew.LanceOfLonginusMod.items.ItemLanceOfLonginus;
+import net.remew.LanceOfLonginusMod.item.ItemLanceOfLonginus;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
