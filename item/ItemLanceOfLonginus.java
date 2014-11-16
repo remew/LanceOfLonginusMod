@@ -28,7 +28,6 @@ public class ItemLanceOfLonginus extends Item
 		{
 			itemStack.stackSize--;
 		}//*/
-		
 		if( !world.isRemote )
 		{
 			world.spawnEntityInWorld(new EntityLanceOfLonginus(world, entityPlayer, 0.0, 0.0, 0.0));
