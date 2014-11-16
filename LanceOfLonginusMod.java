@@ -37,6 +37,7 @@ public class LanceOfLonginusMod
 		
 		this.lanceOfLonginus = new ItemLanceOfLonginus(this.ID_LanceOfLonginus - 256);
 		GameRegistry.registerItem(this.lanceOfLonginus, "LanceOfLonginus");
+		
 	}
 	
 	@EventHandler
