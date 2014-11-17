@@ -3,6 +3,8 @@ package net.remew.LanceOfLonginusMod;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
+import net.remew.LanceOfLonginusMod.client.LanceOfLonginusRenderer;
+import net.remew.LanceOfLonginusMod.entity.EntityLanceOfLonginus;
 import net.remew.LanceOfLonginusMod.item.ItemLanceOfLonginus;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -12,6 +14,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -31,18 +34,22 @@ public class LanceOfLonginusMod
 	public static CommonProxy proxy;
 	
 	public static Item lanceOfLonginus;
-	public static int ID_LanceOfLonginus;
+	public static int ID_itemLanceOfLonginus;
+	public static int ID_entityLanceOfLonginus;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		LanceOfLonginusMod.ID_LanceOfLonginus = config.getItem("IdLanceOfLonginus", 14502).getInt();
+		this.ID_itemLanceOfLonginus = config.getItem("LanceOfLonginus", 14502).getInt();
+		this.ID_entityLanceOfLonginus = config.get("Entity", "LanceOfLonginus", 252).getInt();
 		config.save();
 		
-		this.lanceOfLonginus = new ItemLanceOfLonginus(this.ID_LanceOfLonginus - 256);
+		this.lanceOfLonginus = new ItemLanceOfLonginus(this.ID_itemLanceOfLonginus - 256);
 		GameRegistry.registerItem(this.lanceOfLonginus, "LanceOfLonginus");
 		
+		EntityRegistry.registerModEntity(EntityLanceOfLonginus.class, "LanceOfLonginus", this.ID_entityLanceOfLonginus, this, 250, 5, true);
+		EntityRegistry.registerGlobalEntityID(EntityLanceOfLonginus.class, "LanceOfLonginus", this.ID_entityLanceOfLonginus);
 		this.proxy.registerRenderers();
 	}
 	
@@ -51,7 +58,7 @@ public class LanceOfLonginusMod
 	{
 		if( FMLCommonHandler.instance().getSide() == Side.CLIENT )
 		{
-			MinecraftForgeClient.registerItemRenderer(this.lanceOfLonginus.itemID, null);
+			MinecraftForgeClient.registerItemRenderer(this.lanceOfLonginus.itemID, new LanceOfLonginusRenderer());
 		}
 	}
 	

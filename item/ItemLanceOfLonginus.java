@@ -24,13 +24,18 @@ public class ItemLanceOfLonginus extends Item
 	 */
 	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer entityPlayer)
 	{
+		//double d5 = this.targetedEntity.posX - this.posX;
+        //double d6 = this.targetedEntity.boundingBox.minY + (double)(this.targetedEntity.height / 2.0F) - (this.posY + (double)(this.height / 2.0F));
+        //double d7 = this.targetedEntity.posZ - this.posZ;
+		
 		if (!entityPlayer.capabilities.isCreativeMode)
 		{
 			itemStack.stackSize--;
 		}//*/
 		if( !world.isRemote )
 		{
-			world.spawnEntityInWorld(new EntityLanceOfLonginus(world, entityPlayer, 0.0, 0.0, 0.0));
+			//world.spawnEntityInWorld(new EntityLanceOfLonginus(world, entityPlayer, 0.0, 0.0, 0.0));
+			world.spawnEntityInWorld(new EntityLanceOfLonginus(world, entityPlayer));
 		}
 		
 		return itemStack;
