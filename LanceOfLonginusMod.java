@@ -6,6 +6,7 @@ import net.minecraftforge.common.Configuration;
 import net.remew.LanceOfLonginusMod.item.ItemLanceOfLonginus;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -25,6 +26,10 @@ public class LanceOfLonginusMod
 	
 	public static final LLModCreativeTab creativeTab = new LLModCreativeTab("lanceoflonginusmod");
 	
+	@SidedProxy(clientSide = "net.remew.LanceOfLonginusMod.client.ClientProxy",
+				serverSide = "net.remew.LanceOfLonginusMod.server.ServerProxy")
+	public static CommonProxy proxy;
+	
 	public static Item lanceOfLonginus;
 	public static int ID_LanceOfLonginus;
 	
@@ -38,6 +43,7 @@ public class LanceOfLonginusMod
 		this.lanceOfLonginus = new ItemLanceOfLonginus(this.ID_LanceOfLonginus - 256);
 		GameRegistry.registerItem(this.lanceOfLonginus, "LanceOfLonginus");
 		
+		this.proxy.registerRenderers();
 	}
 	
 	@EventHandler
