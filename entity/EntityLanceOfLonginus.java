@@ -32,7 +32,7 @@ public class EntityLanceOfLonginus extends Entity
 	public int throwableShake;
 	
 	public static final int explosionPower = 0;
-	private EntityDragon target = null;
+	private Entity target = null;
 	/**
 	 * Is the entity that throws this 'thing' (snowball, ender pearl, eye of ender or potion)
 	 */
@@ -79,7 +79,6 @@ public class EntityLanceOfLonginus extends Entity
 		this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI) * f);
 		this.motionY = (double)(-MathHelper.sin((this.rotationPitch + this.func_70183_g()) / 180.0F * (float)Math.PI) * f);
 		this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, this.func_70182_d(), 1.0F);
-		this.targetLockOn();
 	}
 	
 	public EntityLanceOfLonginus(World par1World, double par2, double par4, double par6)
@@ -95,10 +94,11 @@ public class EntityLanceOfLonginus extends Entity
 	{
 		AxisAlignedBB var = this.boundingBox.expand(256, 256, 256);
 		Iterator it = this.worldObj.getEntitiesWithinAABB(EntityDragon.class, var).iterator();
+		//Iterator it = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, var).iterator();
 		
 		while( it.hasNext() )
 		{
-			this.target = (EntityDragon)it.next();
+			this.target = (Entity) it.next();
 		}
 	}
 	
@@ -164,6 +164,8 @@ public class EntityLanceOfLonginus extends Entity
 		this.lastTickPosY = this.posY;
 		this.lastTickPosZ = this.posZ;
 		super.onUpdate();
+		
+		this.targetLockOn();
 		
 		if (this.throwableShake > 0)
 		{
@@ -260,10 +262,23 @@ public class EntityLanceOfLonginus extends Entity
 		this.posX += this.motionX;
 		this.posY += this.motionY;
 		this.posZ += this.motionZ;
-		float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-		this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 		
-		for (this.rotationPitch = (float)(Math.atan2(this.motionY, (double)f1) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+		double xDiff = 0;
+		double yDiff = 0;
+		double zDiff = 0;
+		if( this.target != null )
+		{
+			xDiff = this.target.posX - this.posX;
+			yDiff = this.target.posY - this.posY;
+			zDiff = this.target.posZ - this.posZ;
+		}
+		
+		//float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+		//this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
+		float f1 = MathHelper.sqrt_double(xDiff * xDiff + zDiff * zDiff);
+		this.rotationYaw = (float)(Math.atan2(zDiff, xDiff) * 180.0D / Math.PI);
+		this.rotationPitch = (float)(Math.atan2(yDiff, (double)f1) * 180.0 / Math.PI);
+		for (this.rotationPitch = (float)(Math.atan2(yDiff, (double)f1) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
 		{
 			;
 		}
@@ -281,12 +296,15 @@ public class EntityLanceOfLonginus extends Entity
 		while (this.rotationYaw - this.prevRotationYaw >= 180.0F)
 		{
 			this.prevRotationYaw += 360.0F;
-		}
+		}//*/
 		
-		this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
-		this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
+		//this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
+		//this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
 		float f2 = 0.99F;
 		float f3 = this.getGravityVelocity();
+		
+		System.out.println("pitch:" + this.rotationPitch);
+		System.out.println("yaw:" + this.rotationYaw);
 		
 		if (this.isInWater())
 		{
@@ -307,7 +325,8 @@ public class EntityLanceOfLonginus extends Entity
 		{
 			double angleXZ;
 			double angleY;
-			float speed = 0.5f;
+			float speed = 0.3f;
+			//float speed = 0.0f;
 			angleXZ = Math.atan2(this.target.posZ - this.posZ, this.target.posX - this.posX);
 			angleY = Math.atan(this.target.posY - this.posY + this.target.height * 0.2);
 			
@@ -351,7 +370,6 @@ public class EntityLanceOfLonginus extends Entity
 				}
 				else
 				{
-					System.out.println("B");
 					movingObjectPosition.entityHit.attackEntityFrom(DamageSource.generic, 10.0F);
 				}
 			}
