@@ -38,8 +38,10 @@ public class RenderLanceOfLonginus extends Render
 		this.bindTexture(LanceOfLonginusMod.LANCE_RESOURCE_LOCATION);
 		float pitch = entityLance.rotationPitch;
 		float yaw = entityLance.rotationYaw;
-		GL11.glRotatef(pitch, 0.0f, 1.0f, 0.0f);
-		GL11.glRotatef(yaw, 0.0f, 0.0f, 1.0f);
+		GL11.glRotatef(-yaw + 90, 0.0f, 1.0f, 0.0f);
+		GL11.glRotatef(-pitch - 90, 1.0f, 0.0f, 0.0f);
+		/*GL11.glRotatef(90 - pitch - yaw, 1.0f, 0.0f, 0.0f);
+		GL11.glRotatef(yaw + 90, 0.0f, 0.0f, 1.0f);*/
 		//float f3 = MathHelper.sin(f2 * 0.2F) / 2.0F + 0.5F;
 		//f3 += f3 * f3;
 		//this.model.render(entityLance, 0.0F, f2 * 3.0F, f3 * 0.2F, 0.0F, 0.0F, 0.0625F);
