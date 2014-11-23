@@ -1,6 +1,7 @@
 package net.remew.LanceOfLonginusMod;
 
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.Configuration;
 import net.remew.LanceOfLonginusMod.client.LanceOfLonginusRenderer;
@@ -36,6 +37,9 @@ public class LanceOfLonginusMod
 	public static Item lanceOfLonginus;
 	public static int ID_itemLanceOfLonginus;
 	public static int ID_entityLanceOfLonginus;
+	
+	public static final ResourceLocation LANCE_RESOURCE_LOCATION = new ResourceLocation("llmod:textures/lance_of_longinus_texture.png");
+	
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)

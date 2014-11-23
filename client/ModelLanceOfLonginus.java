@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 
 public class ModelLanceOfLonginus extends ModelBase
 {
-	public static final ResourceLocation LANCE_RESOURCE_LOCATION = new ResourceLocation("llmod:textures/lance_of_longinus_texture.png");
 	ModelRenderer StickUnder;
 	ModelRenderer StickBottom;
 	ModelRenderer LeftLance;
@@ -141,21 +140,22 @@ public class ModelLanceOfLonginus extends ModelBase
 	{
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 		
-		StickUnder.rotateAngleX = f5;
-		StickBottom.rotateAngleX = f5;
-		/*StickUnder.render(scale);
-		StickBottom.render(scale);
-		LeftLance.render(scale);
-		RightLance.render(scale);
-		RightLanceBottom.render(scale);
-		LeftLanceBottom.render(scale);
-		TheBox0.render(scale);
-		TheBox1.render(scale);
-		TheBox2.render(scale);
-		TheBox3.render(scale);*/
-		
-		//TheBox0.rotationPointX = MathHelper.cos(f5) * 6;
-		//TheBox0.rotationPointZ = MathHelper.sin(f5) * 6;
+		int r = 8;
+		int rate = 20;
+		int tick = entity.ticksExisted;
+		double radBase = Math.PI / 180.0;
+		float rad0 = (float)(radBase * (tick * rate + 0));
+		float rad1 = (float)(radBase * (tick * rate + 90));
+		float rad2 = (float)(radBase * (tick * rate + 180));
+		float rad3 = (float)(radBase * (tick * rate + 270));
+		TheBox0.rotationPointX = MathHelper.cos(rad0) * r;
+		TheBox0.rotationPointZ = MathHelper.sin(rad0) * r;
+		TheBox1.rotationPointX = MathHelper.cos(rad1) * r;
+		TheBox1.rotationPointZ = MathHelper.sin(rad1) * r;
+		TheBox2.rotationPointX = MathHelper.cos(rad2) * r;
+		TheBox2.rotationPointZ = MathHelper.sin(rad2) * r;
+		TheBox3.rotationPointX = MathHelper.cos(rad3) * r;
+		TheBox3.rotationPointZ = MathHelper.sin(rad3) * r;
 	}
 
 }

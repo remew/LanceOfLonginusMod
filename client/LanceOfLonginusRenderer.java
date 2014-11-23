@@ -1,12 +1,25 @@
 package net.remew.LanceOfLonginusMod.client;
 
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+import net.remew.LanceOfLonginusMod.LanceOfLonginusMod;
 import net.remew.atmod2.core.API.UVXYConverter;
 
 public class LanceOfLonginusRenderer implements IItemRenderer
 {
+	private ModelLanceOfLonginus model;
+	
+	public LanceOfLonginusRenderer()
+	{
+		this.model = new ModelLanceOfLonginus();
+	}
+	
 	@Override
 	public boolean handleRenderType(ItemStack item, ItemRenderType type)
 	{
@@ -18,6 +31,7 @@ public class LanceOfLonginusRenderer implements IItemRenderer
 			return true;
 		case EQUIPPED_FIRST_PERSON:
 			return true;
+			//return false;
 		default:
 			return false;
 		}
@@ -47,6 +61,7 @@ public class LanceOfLonginusRenderer implements IItemRenderer
 			this.renderEquipped(type, item, data);
 			break;
 		case EQUIPPED_FIRST_PERSON:
+			//this.renderEquipped(type, item, data);
 			this.renderEquippedFirstPerson(type, item, data);
 			break;
 		default:
@@ -60,13 +75,37 @@ public class LanceOfLonginusRenderer implements IItemRenderer
 	}
 	private void renderEquipped(ItemRenderType type, ItemStack item, Object... data)
 	{
-		ModelLanceOfLonginus modelLance = new ModelLanceOfLonginus();
-		modelLance.simpleRender(0.1f);
+		GL11.glPushMatrix();
+		float scale = 2.5f;
+		scale = 1.75f;
+		GL11.glScalef(scale, scale, scale);
+		
+		//GL11.glRotatef(0.0f, -10.0f, 0.0f, 0.0f);
+		//GL11.glRotatef(8.0f, 0.0f, -10.0f, 0.0f);
+		GL11.glRotatef(200.0f, 0.0f, 0.0f, -10.0f);
+		GL11.glTranslatef(-0.18f/*-0.3048f*/, 0.0f/*0.500f*/,  -0.09f);
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(LanceOfLonginusMod.LANCE_RESOURCE_LOCATION);
+		this.model.render((Entity)data[1], 0, 0, 0, 0, 0, 0.0625f);
+		
+		GL11.glPopMatrix();
 	}
 	private void renderEquippedFirstPerson(ItemRenderType type, ItemStack item, Object... data)
 	{
-		ModelLanceOfLonginus modelLance = new ModelLanceOfLonginus();
-		modelLance.simpleRender(0.1f);
+		GL11.glPushMatrix();
+		float scale = 2.5f;
+		scale = 1.0f;
+		GL11.glScalef(scale, scale, scale);
+		
+		//GL11.glRotatef(0.0f, -10.0f, 0.0f, 0.0f);
+		//GL11.glRotatef(8.0f, 0.0f, -10.0f, 0.0f);
+		GL11.glRotatef(200.0f, 0.0f, 0.0f, -10.0f);
+		GL11.glTranslatef(-0.3048f, -0.75f/*0.500f*/,  -0.09f);
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(LanceOfLonginusMod.LANCE_RESOURCE_LOCATION);
+		this.model.render((Entity)data[1], 0, 0, 0, 0, 0, 0.0625f);
+		
+		GL11.glPopMatrix();
 	}
 	/*
 	Tessellator tessellator = Tessellator.instance;
