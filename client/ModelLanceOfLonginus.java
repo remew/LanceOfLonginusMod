@@ -156,6 +156,9 @@ public class ModelLanceOfLonginus extends ModelBase
 		TheBox2.rotationPointZ = MathHelper.sin(rad2) * r;
 		TheBox3.rotationPointX = MathHelper.cos(rad3) * r;
 		TheBox3.rotationPointZ = MathHelper.sin(rad3) * r;
+		
+		System.out.println("yaw:" + entity.rotationYaw);
+		System.out.println("pitch:" + entity.rotationPitch);
+		System.out.println("");
 	}
-
 }
