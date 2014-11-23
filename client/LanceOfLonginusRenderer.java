@@ -31,7 +31,6 @@ public class LanceOfLonginusRenderer implements IItemRenderer
 			return true;
 		case EQUIPPED_FIRST_PERSON:
 			return true;
-			//return false;
 		default:
 			return false;
 		}
@@ -61,7 +60,6 @@ public class LanceOfLonginusRenderer implements IItemRenderer
 			this.renderEquipped(type, item, data);
 			break;
 		case EQUIPPED_FIRST_PERSON:
-			//this.renderEquipped(type, item, data);
 			this.renderEquippedFirstPerson(type, item, data);
 			break;
 		default:
@@ -71,7 +69,20 @@ public class LanceOfLonginusRenderer implements IItemRenderer
 	
 	private void renderEntity(ItemRenderType type, ItemStack item, Object... data)
 	{
+		GL11.glPushMatrix();
+		float scale = 2.5f;
+		scale = 1.75f;
+		GL11.glScalef(scale, scale, scale);
 		
+		//GL11.glRotatef(0.0f, -10.0f, 0.0f, 0.0f);
+		//GL11.glRotatef(8.0f, 0.0f, -10.0f, 0.0f);
+		GL11.glRotatef(200.0f, 0.0f, 0.0f, -10.0f);
+		GL11.glTranslatef(-0.0f/*-0.18f*/, -1.500f,  -0.0f/*9*/);
+		
+		Minecraft.getMinecraft().renderEngine.bindTexture(LanceOfLonginusMod.LANCE_RESOURCE_LOCATION);
+		this.model.render((Entity)data[1], 0, 0, 0, 0, 0, 0.0625f);
+		
+		GL11.glPopMatrix();
 	}
 	private void renderEquipped(ItemRenderType type, ItemStack item, Object... data)
 	{
